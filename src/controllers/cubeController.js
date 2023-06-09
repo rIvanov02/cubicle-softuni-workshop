@@ -12,7 +12,7 @@ router.get('/create', (req, res) => {
             imageUrl,
             difficultyLevel,
         } = req.body; 
-        
+
         cubeManager.create({
             name,
             description,
