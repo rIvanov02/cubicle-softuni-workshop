@@ -1,22 +1,23 @@
 const express = require('express');
+
+const expressConfig = require('./config/expressConfig');
+const handlebarsConfig = require('./config/handlebarsConfig');
+const errorHandler = require('./middlewares/errorHandlerMiddleware');
+const dbConnect = require('./config/dbConfig');
+const routes = require('./routes');
+
 const app = express();
 
-const port = 5000;
+const PORT = 5000;
 
-const expressConfig = require('./config/expressConfig')
-const handlebarsConfig = require('./config/handlebarsConfig')
-const homeController = require('./controllers/homeController')
-const cubeController = require('./controllers/cubeController')
+expressConfig(app);
+handlebarsConfig(app);
 
-expressConfig(app)
-handlebarsConfig(app)
+dbConnect()
+    .then(() => console.log('DB Connected successfully'))
+    .catch(err => console.log('DB error: ', err.message));
 
+app.use(routes);
+app.use(errorHandler);
 
-app.use(homeController)
-app.use('/cubes', cubeController)
-
-app.get("*", (req, res) => { 
-    res.redirect('/404')
-})
-
-app.listen(port, () => { console.log("Server listening on port : " + port)});
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));

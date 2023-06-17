@@ -1,2 +1,2 @@
-# cubicle-softuni-workshop
-SoftUni Course Project Workshop
+# softuni-cubicle-may-2023
+Softuni Course Project Workshop
